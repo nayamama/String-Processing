@@ -9,6 +9,18 @@ import sys
 # contains all the trie edges outgoing from the corresponding
 # node, and the keys are the letters on those edges, and the
 # values are the node IDs to which these edges lead.
+#
+# input: ["ATAGA", "ATC", "GAT"]
+# output:
+# 0->1:A
+# 0->7:G
+# 1->2:T
+# 2->3:A
+# 2->6:C
+# 3->4:G
+# 4->5:A
+# 7->8:A
+# 8->9:T
 
 
 def build_trie(patterns):
@@ -26,7 +38,7 @@ def build_trie(patterns):
             if s not in tree[root]:
                 count += 1
                 tree[root][s] = count
-                root = tree[root][s]
+                root = count
                 if p_count < len(p):
                     tree[root] = {}
             else:
@@ -37,7 +49,6 @@ def build_trie(patterns):
 
 if __name__ == '__main__':
     patterns = sys.stdin.read().split()[1:]
-    # patterns = ["ATAGA", "ATC", "GAT"]
     tree = build_trie(patterns)
     for node in tree:
         for c in tree[node]:
